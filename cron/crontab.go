@@ -6,9 +6,29 @@ import (
 )
 
 func main() {
-	go cronJobPerSeconds()
-	go cronJobPerMin()
-	go cronJobPerDay()
+	//go cronJobPerSeconds()
+	//go cronJobPerMin()
+	//go cronJobPerDay()
+	//select {}
+	go cronMutilJob()
+	select {}
+}
+
+func cronMutilJob() {
+	ct := cron.New(cron.WithSeconds())
+	ct.AddFunc("*/1 * * * * *", func() {
+		fmt.Println("hello 1s ")
+	})
+
+	ct.AddFunc("*/3 * * * * *", func() {
+		fmt.Println("hello 3s")
+	})
+
+	ct.AddFunc("*/7 * * * * *", func() {
+		fmt.Println("hello 7s")
+	})
+
+	ct.Start()
 	select {}
 }
 
