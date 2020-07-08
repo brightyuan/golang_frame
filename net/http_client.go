@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	resp, err := http.Get("http://localhost:9000/hello")
+	resp, err := http.Get("http://localhost:9000/world")
 	if err != nil {
 		panic("err connect")
 	}
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	fmt.Printf("%s",body)
+	fmt.Printf("%s", body)
 }
