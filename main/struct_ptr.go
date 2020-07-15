@@ -1,4 +1,4 @@
-﻿package main
+package main
 
 import "fmt"
 
@@ -24,13 +24,16 @@ func main() {
 
 	/* 打印 Book1 信息 */
 	printBook(Book1)
+	fmt.Println("===============================================")
 	//指针方式
 	printBookPtr(&Book1)
+	fmt.Println("===============================================")
 
 	changeBook(Book1)
 	fmt.Println(Book1)
+	fmt.Println("===============================================")
 
-	//（引用）指针方式，可以修改结构体值
+	//指针方式，引用方式，使用内存地址，可以修改结构体值
 	changeBookPtr(&Book1)
 	fmt.Println(Book1)
 
