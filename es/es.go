@@ -1,5 +1,9 @@
 package main
 
+/**
+
+控制并发有两种经典的方式，一种是WaitGroup，另外一种就是Context
+*/
 import (
 	"context"
 	"encoding/json"
