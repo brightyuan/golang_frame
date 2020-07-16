@@ -4,7 +4,10 @@ package main
 结构体+方法
 定义结构体union，实现handle1，handle2两个方法
 */
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type union2 struct {
 	i int
@@ -33,4 +36,5 @@ func main() {
 
 	u.HandlePtrMethod()
 	fmt.Println(u, "结构体值被修改了")
+	time.Tick()
 }
