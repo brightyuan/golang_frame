@@ -41,7 +41,7 @@ func main() {
     }
 }`
 	ctx := context.Background()
-	client := newClient(servers)
+	client := NewClient(servers)
 	//1. ping
 	info, code, err := client.Ping(servers).Do(ctx)
 	if err != nil {
@@ -60,11 +60,21 @@ func main() {
 	readDocById(client, indexName, subject)
 	//5.按struct查询
 	queryDoc(client, ctx, indexName, subject)
+
+	//6.批量插入
+	subjects := []Subject{
+		{ID: 12, Title: "www", Genres: []string{"xxxxx", "test"}},
+		{ID: 13, Title: "yyy", Genres: []string{"ttttt", "test"}},
+	}
+
+	bulkDoc(client, subjects, ctx, indexName)
+
+	//7.删除
 	delDoc(client, indexName, 0)
 
 }
 
-func newClient(servers string) *elastic.Client {
+func NewClient(servers string) *elastic.Client {
 	client, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL(servers))
 	if err != nil {
 		panic(err)
@@ -111,7 +121,7 @@ func readDocById(client *elastic.Client, indexName string, subject Subject) {
 	if doc.Found {
 		fmt.Printf("Got doc  id=%v,type = %s\n", doc.Id, doc.Type)
 	}
-	err = json.Unmarshal(*doc.Source, &subject)
+	err = json.Unmarshal(doc.Source, &subject)
 	if err != nil {
 		panic(err)
 	}
@@ -119,8 +129,9 @@ func readDocById(client *elastic.Client, indexName string, subject Subject) {
 }
 
 func queryDoc(client *elastic.Client, ctx context.Context, indexName string, subject Subject) {
-	termQuery := elastic.NewTermQuery("title", subject.Title)
-	result, err := client.Search().Index(indexName).Type("_doc").Query(termQuery).Do(ctx)
+	termQuery := elastic.NewTermQuery("Title", subject.Title)
+	fmt.Println(*termQuery)
+	result, err := client.Search().Index(indexName).Query(termQuery).Do(ctx)
 	//.Sort("id", true).From(0).Size(10).Pretty(true).Do(ctx)
 	if err != nil {
 		panic(err)
@@ -140,16 +151,29 @@ func queryDoc(client *elastic.Client, ctx context.Context, indexName string, sub
 
 func delDoc(client *elastic.Client, indexName string, id int) {
 	ctx := context.Background()
-	res, err := client.Delete().
-		Index(indexName).Type("_doc").
+	res, _ := client.Delete().
+		Index(indexName).
 		Id(strconv.Itoa(id)).
 		Refresh("wait_for").
 		Do(ctx)
+	if res.Result == "deleted" {
+		fmt.Println("Document 1: deleted")
+	} else if res.Result == "not_found" {
+		fmt.Println("Document 1: not_found")
+	}
+	fmt.Println("****")
+}
+
+func bulkDoc(client *elastic.Client, subjects []Subject, ctx context.Context, indexName string) {
+	bulkRequest := client.Bulk()
+	for _, subject := range subjects {
+		doc := elastic.NewBulkIndexRequest().Index(indexName).Id(strconv.Itoa(subject.ID)).Doc(subject)
+		bulkRequest.Add(doc)
+	}
+	response, err := bulkRequest.Do(ctx)
 	if err != nil {
 		panic(err)
 	}
-	if res.Result == "deleted" {
-		fmt.Println("Document 1: deleted")
-	}
-	fmt.Println("****")
+	fmt.Println(response)
+	fmt.Println("bulk ok!")
 }
