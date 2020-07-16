@@ -76,6 +76,9 @@ func main() {
 	//7.删除
 	delDoc(client, indexName, 0)
 
+	names, _ := client.IndexNames()
+	fmt.Println(names)
+
 }
 
 func NewClient(servers string) *elastic.Client {
