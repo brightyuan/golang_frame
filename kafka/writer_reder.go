@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	//go writer()
+	go writer()
 	go reader()
 	select {}
 }
