@@ -14,11 +14,12 @@ func producer() {
 	conn, _ := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", topic, partition)
 
 	conn.SetWriteDeadline(time.Now().Add(10 * time.Second))
-	conn.WriteMessages(
+	c, _ := conn.WriteMessages(
 		kafka.Message{Value: []byte("one!")},
 		kafka.Message{Value: []byte("two!")},
 		kafka.Message{Value: []byte("three!")},
 	)
+	fmt.Println(c)
 
 	conn.Close()
 }
@@ -48,4 +49,6 @@ func consumer() {
 }
 
 func main() {
+	producer()
+	consumer()
 }

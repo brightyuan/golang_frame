@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/segmentio/kafka-go"
-	"time"
 )
 
 func consumerg() {
@@ -15,6 +14,7 @@ func consumerg() {
 		Topic:    "topic-A",
 		MinBytes: 10e3, // 10KB
 		MaxBytes: 10e6, // 10MB
+		//CommitInterval:time.Second,
 	})
 
 	for {
@@ -43,18 +43,6 @@ func commitMsg(r *kafka.Reader) {
 	}
 }
 
-func interCommit() {
-	// make a new reader that consumes from topic-A
-	kafka.NewReader(kafka.ReaderConfig{
-		Brokers:        []string{"localhost:9092"},
-		GroupID:        "consumer-group-id",
-		Topic:          "topic-A",
-		MinBytes:       10e3,        // 10KB
-		MaxBytes:       10e6,        // 10MB
-		CommitInterval: time.Second, // flushes commits to Kafka every second
-	})
-}
-
 func main() {
-
+	consumerg()
 }
