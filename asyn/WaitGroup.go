@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-/*等待组（sync.Wait Group）——保证在并发环境中完成指定数量的任*/
+/*等待组（sync.Wait Group）——保证在并发环境中完成指定数量的任务*/
 
 func main() {
 	//声明等待组
