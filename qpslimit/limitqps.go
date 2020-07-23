@@ -22,7 +22,7 @@ func main() {
 	//模拟用户调用
 	for {
 		go takeToken(tokenBucket)
-		time.Sleep(time.Microsecond * 50)
+		time.Sleep(time.Microsecond * 10)
 	}
 
 	select {} //main阻塞
