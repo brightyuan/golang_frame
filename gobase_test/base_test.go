@@ -1,7 +1,7 @@
 package gobase_test
 
+import "go/gobase"
 import (
-	"ext/gobase"
 	"fmt"
 	"testing"
 )
