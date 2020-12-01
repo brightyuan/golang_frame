@@ -48,5 +48,3 @@ func sleeDo() {
 	time.Sleep(time.Second * 2)
 	fmt.Println("sleep 2s done")
 }
-
-

@@ -9,7 +9,7 @@ import (
 *@author ywh
 @version 1.0
 *
- */
+*/
 
 func main() {
 	fmt.Println("Hello, World!")

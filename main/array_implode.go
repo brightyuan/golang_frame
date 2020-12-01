@@ -1,4 +1,4 @@
-﻿package main
+package main
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 func main() {
 
 	//v := Implode(", ", 1, "2", "0.2", .1, S{});
-	var data = []string{"dsf","sdfas","dasfas"}
+	var data = []string{"dsf", "sdfas", "dasfas"}
 	//var data = []float32{1, 2, 3, 4, 5, 6, 6}
 	fmt.Println(Implode(data, ","))
 }

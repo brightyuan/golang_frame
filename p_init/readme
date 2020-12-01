@@ -1,0 +1,9 @@
+main.go 编译执行输出：
+go build -gcflags "-N -l" -o test
+
+
+反汇编工具，看看最终动态生成代码的真实面目。
+go tool objdump -s "runtime\.init\b" test
+
+main.init，情况基本一致。区别在于它负责调用非 runtime 包的初始化函数。
+go tool objdump -s "main\.init\b" test

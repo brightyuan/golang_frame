@@ -1,4 +1,4 @@
-﻿package main
+package main
 
 import (
 	"encoding/json"
@@ -6,26 +6,34 @@ import (
 )
 
 type User struct {
-	Name  string    `json:"name"`
-	Email string   `json:"email"`
-	Hobby []interface{} `json:"hobby"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	//Hobby []interface{} `json:"hobby"`
+	Hobby Hobby `json:"hobby"`
 }
 
-type Response struct {
-	Status int `json:"status"`
+type Hobby struct {
+	Status int    `json:"status"`
 	Msg    string `json:"msg"`
 	//data   interface{} `json:"data"`
 }
 
 func main() {
-	u1 := Response{
-		Msg: "七米",
+	hobby := Hobby{
+		Status: 1,
+		Msg:    "hello",
 	}
+	u1 := User{
+		Name:  "七米",
+		Hobby: hobby,
+	}
+
 	// struct -> json string
 	b, err := json.Marshal(u1)
 	if err != nil {
 		fmt.Printf("json.Marshal failed, err:%v\n", err)
 		return
 	}
-	fmt.Printf("str:%s\n", b)
+	fmt.Print(string(b))
+	//fmt.Printf("str:%s\n", b)
 }

@@ -1,8 +1,9 @@
 package main
+
 /**
 接口多继承
 定义结构体union，继承接口handle1，handle2两个接口
- */
+*/
 import "fmt"
 
 type union struct {
@@ -29,7 +30,7 @@ func (u *union) HandleMethod2() {
 }
 
 func main() {
-	u:= union{i:12,t:"hello"}
+	u := union{i: 12, t: "hello"}
 	u.HandleMethod()
 	//union.HandleMethod2()
 	u.HandleMethod2()

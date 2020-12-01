@@ -6,7 +6,6 @@ package main
 */
 import (
 	"fmt"
-	"time"
 )
 
 type union2 struct {
@@ -36,5 +35,4 @@ func main() {
 
 	u.HandlePtrMethod()
 	fmt.Println(u, "结构体值被修改了")
-	time.Tick()
 }
