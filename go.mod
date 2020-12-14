@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
 	github.com/astaxie/beego v1.12.1
+	github.com/beego/bee v1.12.3 // indirect
 	github.com/beego/samples v0.0.0-20180420090448-1c696ee4905b
 	github.com/go-redis/redis v6.15.8+incompatible
 	github.com/hprose/hprose-golang v2.0.5+incompatible
